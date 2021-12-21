@@ -7,7 +7,7 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    CircularProgress, Typography, Link, IconButton,
+    CircularProgress, Typography, IconButton,
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -15,20 +15,17 @@ import Settings from './components/Settings';
 
 const ComparisonTable = ({
     lootfarm,
-    rustTm,
-    valute,
+    itrade,
     settings,
     
     fetchLootfarm,
-    fetchRustTm,
-    fetchValute,
+    fetchItrade,
     fetchSettings,
     updateSettings,
 }) => {
     const load = () => {
         fetchLootfarm();
-        fetchRustTm();
-        fetchValute();
+        fetchItrade();
     };
     
     useEffect(() => {
@@ -49,28 +46,27 @@ const ComparisonTable = ({
     
     const formattedItems = useMemo(() => {
         return lootfarm.items.reduce((acc, lootfarmItem) => {
-            const rustTmItem = rustTm.items.find(item => item.market_hash_name === lootfarmItem.name);
+            const itradeItem = itrade.items.find(item => item.name === lootfarmItem.name);
             
-            if (!rustTmItem) {
+            if (!itradeItem) {
                 return acc;
             }
             
-            const profit = calcProfit(lootfarmItem.price / 100, rustTmItem.buy_order * 0.95);
+            const profit = calcProfit(lootfarmItem.price / 100, itradeItem.price * 0.91);
             
             acc.push({
-                rustTmId: rustTmItem.id.replace('_', '-'),
                 name: lootfarmItem.name,
                 priceLootfarm: lootfarmItem.price / 100,
-                priceRustTm: rustTmItem.buy_order,
-                priceRustTmRub: (rustTmItem.buy_order * valute).toFixed(2),
+                priceItrade: itradeItem.price,
                 profit,
                 lootfarmHave: lootfarmItem.have,
+                itradeHave: itradeItem.same,
             });
             
             return acc;
         }, [])
             .sort((item1, item2) => item2.profit - item1.profit);
-    }, [lootfarm, rustTm, valute]);
+    }, [lootfarm, itrade]);
     
     const filteredItems = useMemo(() => {
         if (!formattedItems) {
@@ -81,16 +77,22 @@ const ComparisonTable = ({
             if (settings.minLootfarmHave && item.lootfarmHave < settings.minLootfarmHave) {
                 return acc;
             }
+            if (settings.minItradeHave && item.itradeHave < settings.minItradeHave) {
+                return acc;
+            }
+            if (settings.maxItradeHave && item.itradeHave > settings.maxItradeHave) {
+                return acc;
+            }
             if (settings.minLootfarmPrice && item.priceLootfarm < settings.minLootfarmPrice) {
                 return acc;
             }
             if (settings.maxLootfarmPrice && item.priceLootfarm > settings.maxLootfarmPrice) {
                 return acc;
             }
-            if (settings.minRustTmPrice && item.priceRustTm < settings.minRustTmPrice) {
+            if (settings.minItradePrice && item.priceItrade < settings.minItradePrice) {
                 return acc;
             }
-            if (settings.maxRustTmPrice && item.priceRustTm > settings.maxRustTmPrice) {
+            if (settings.maxItradePrice && item.priceItrade > settings.maxItradePrice) {
                 return acc;
             }
             if (settings.minProfit && item.profit < settings.minProfit) {
@@ -110,7 +112,7 @@ const ComparisonTable = ({
     return (
         <>
             <Typography variant="h4" gutterBottom component="div">
-                loot.farm -> rust.tm
+                loot.farm -> itrade.gg
             </Typography>
             <div className="settings">
                 <Settings
@@ -123,27 +125,23 @@ const ComparisonTable = ({
                     <ReplayIcon color="primary" fontSize="inherit" />
                 </IconButton>
             </div>
-            {!lootfarm.isLoading && !rustTm.isLoading ? (
+            {!lootfarm.isLoading && !itrade.isLoading ? (
                 <Table className="table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Название</TableCell>
                             <TableCell align="right">Цена loot.farm</TableCell>
                             <TableCell align="right">На loot.farm</TableCell>
-                            <TableCell align="right">Цена rust.tm</TableCell>
-                            <TableCell align="right">Профит, %</TableCell>
+                            <TableCell align="right">Цена itrade.gg</TableCell>
+                            <TableCell align="right">На itrade.gg</TableCell>
+                            <TableCell align="right">Профит</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {filteredItems.map(item => (
                             <TableRow key={item.name} hover>
                                 <TableCell>
-                                    <Link
-                                        href={`https://rust.tm/item/${item.rustTmId}-${item.name}`}
-                                        underline="none"
-                                        target="_blank">
-                                        {item.name}
-                                    </Link>
+                                    {item.name}
                                     <span className="copy">
                                         <IconButton size="small" onClick={() => copyToClipboard(item.name)}>
                                             <ContentCopyIcon />
@@ -151,9 +149,10 @@ const ComparisonTable = ({
                                     </span>
                                 </TableCell>
                                 <TableCell align="right">{item.priceLootfarm} $</TableCell>
-                                <TableCell align="right">{item.lootfarmHave}</TableCell>
-                                <TableCell align="right">{`${item.priceRustTm} $ (${item.priceRustTmRub} руб)`}</TableCell>
-                                <TableCell align="right">{item.profit}</TableCell>
+                                <TableCell align="right">{item.lootfarmHave} шт</TableCell>
+                                <TableCell align="right">{item.priceItrade} $</TableCell>
+                                <TableCell align="right">{item.itradeHave} шт</TableCell>
+                                <TableCell align="right">{item.profit} %</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

@@ -1,14 +1,14 @@
 const connector = ({
-    table: {
+    main: {
         lootfarm,
-        rustTm,
-        valute,
+        itrade,
+    },
+    lootfarmToItrade: {
         settings,
     },
 }) => ({
     lootfarm,
-    rustTm,
-    valute,
+    itrade,
     settings,
 });
 

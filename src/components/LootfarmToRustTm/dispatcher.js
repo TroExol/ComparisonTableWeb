@@ -1,6 +1,6 @@
-import FetchLootfarm from './actions/lootfarm/fetch';
-import FetchRustTm from './actions/rustTm/fetch';
-import FetchValute from './actions/valute/fetch';
+import FetchLootfarm from '../main/actions/blocks/lootfarm/fetch';
+import FetchRustTm from '../main/actions/blocks/rustTm/fetch';
+import FetchValute from '../main/actions/blocks/valute/fetch';
 import FetchSettings from './actions/settings/fetch';
 import UpdateSettings from './actions/settings/update';
 

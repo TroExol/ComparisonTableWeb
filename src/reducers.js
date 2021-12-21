@@ -1,6 +1,12 @@
 import {combineReducers} from 'redux';
-import table from './components/Table/reducer';
+import lootfarmToRustTm from './components/LootfarmToRustTm/reducer';
+import itradeToRustTm from './components/ItradeToRustTm/reducer';
+import lootfarmToItrade from './components/LootfarmToItrade/reducer';
+import main from './components/main/reducer';
 
 export default combineReducers({
-    table,
+    lootfarmToRustTm,
+    itradeToRustTm,
+    lootfarmToItrade,
+    main,
 });

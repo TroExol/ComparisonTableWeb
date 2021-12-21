@@ -23,6 +23,23 @@ app.get('/items/lootfarm', async (req, res) => {
     }
 });
 
+app.get('/items/itrade', async (req, res) => {
+    try {
+        const {data: {inventory: {items}}} = await Axios.get('https://itrade.gg/ajax/getInventory?game=252490&type=bot');
+    
+        const formattedItems = Object.entries(items).map(([key, value]) => {
+            return {...value};
+        });
+        
+        res.status(200).json(formattedItems);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({
+            message: 'Произошла ошибка при запросе предметов itrade.gg',
+        });
+    }
+});
+
 app.get('/items/rustTm', async (req, res) => {
     try {
         const {data: {items}} = await Axios.get('https://rust.tm/api/v2/prices/class_instance/USD.json');

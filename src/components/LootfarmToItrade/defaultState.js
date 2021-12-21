@@ -1,18 +1,12 @@
 const DefaultState = {
-    lootfarm: {
-        items: [],
-        isLoading: false,
-    },
-    rustTm: {
-        items: [],
-        isLoading: false,
-    },
     settings: {
         minLootfarmHave: null,
+        minItradeHave: null,
+        maxItradeHave: null,
         minLootfarmPrice: null,
         maxLootfarmPrice: null,
-        minRustTmPrice: null,
-        maxRustTmPrice: null,
+        minItradePrice: null,
+        maxItradePrice: null,
         autoLoad: null,
         minProfit: null,
         maxProfit: null,

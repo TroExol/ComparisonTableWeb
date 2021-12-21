@@ -3,7 +3,7 @@ import DefaultState from '../../defaultState';
 
 const Fetch = () => async (dispatch) => {
     try {
-        const settings = window.localStorage.getItem('settings');
+        const settings = window.localStorage.getItem('settingsItradeToRustTm');
         
         dispatch(SetSettings(settings ? JSON.parse(settings) : DefaultState.settings));
     } catch (error) {

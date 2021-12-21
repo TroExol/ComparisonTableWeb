@@ -1,0 +1,25 @@
+.table {
+    user-select: auto;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+}
+
+.settings {
+    margin: 24px;
+}
+
+.copy {
+    margin-left: 5px;
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+a.link-name:visited {
+    color: #5a14a1;
+}

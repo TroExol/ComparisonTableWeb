@@ -1,0 +1,21 @@
+.row {
+    display: flex;
+}
+
+.row > * + * {
+    margin-left: 10px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.column > * + * {
+    margin-top: 10px;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+}

@@ -19,3 +19,7 @@
     display: flex;
     justify-content: flex-end;
 }
+
+a.link-name:visited {
+    color: #5a14a1;
+}
