@@ -12,6 +12,7 @@ const Fetch = () => async (dispatch) => {
         dispatch(SetItradeItems(data));
     } catch (error) {
         console.error('При загрузке предметов itrade.gg произошла ошибка', error);
+        dispatch(SetItradeItems([]));
     } finally {
         dispatch(SetItradeIsLoading(false));
     }

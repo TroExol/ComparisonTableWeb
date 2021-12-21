@@ -12,6 +12,7 @@ const Fetch = () => async (dispatch) => {
         dispatch(SetRustTmItems(data));
     } catch (error) {
         console.error('При загрузке предметов rust.tm произошла ошибка', error);
+        dispatch(SetRustTmItems([]));
     } finally {
         dispatch(SetRustTmIsLoading(false));
     }

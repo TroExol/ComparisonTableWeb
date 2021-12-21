@@ -12,6 +12,7 @@ const Fetch = () => async (dispatch) => {
         dispatch(SetLootfarmItems(data));
     } catch (error) {
         console.error('При загрузке предметов loot.farm произошла ошибка', error);
+        dispatch(SetLootfarmItems([]));
     } finally {
         dispatch(SetLootfarmIsLoading(false));
     }
