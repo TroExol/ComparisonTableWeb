@@ -23,6 +23,23 @@ app.get('/items/lootfarm', async (req, res) => {
     }
 });
 
+app.get('/items/swapgg', async (req, res) => {
+    try {
+        const {
+            data: {
+                result,
+            }
+        } = await Axios.get('https://api.swap.gg/prices/252490');
+        
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({
+            message: 'Произошла ошибка при запросе предметов swap.gg',
+        });
+    }
+});
+
 app.get('/items/itrade', async (req, res) => {
     try {
         const {data: {inventory: {items}}} = await Axios.get('https://itrade.gg/ajax/getInventory?game=252490&type=bot');
@@ -72,4 +89,4 @@ app.get('/valute/usd', async (req, res) => {
     }
 });
 
-app.listen(7000);
+app.listen(7001);

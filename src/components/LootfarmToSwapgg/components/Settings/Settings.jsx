@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {CircularProgress, InputAdornment, TextField} from '@mui/material';
+import {CircularProgress, InputAdornment, TextField, Checkbox, FormControlLabel} from '@mui/material';
 import './style.css';
 
 const Settings = ({
@@ -35,9 +35,9 @@ const Settings = ({
             <div className="column">
                 <div>
                     <TextField
-                        label="Мин. кол-во на itrade.gg"
-                        value={settings.minItradeHave || ''}
-                        onChange={({target: {value}}) => change('minItradeHave', value)}
+                        label="Мин. кол-во на swap.gg"
+                        value={settings.minSwapggHave || ''}
+                        onChange={({target: {value}}) => change('minSwapggHave', value)}
                         type="number"
                         InputProps={{
                             startAdornment: <InputAdornment position="start">шт</InputAdornment>,
@@ -45,15 +45,13 @@ const Settings = ({
                     />
                 </div>
                 <div>
-                    <TextField
-                        label="Макс. кол-во на itrade.gg"
-                        value={settings.maxItradeHave || ''}
-                        onChange={({target: {value}}) => change('maxItradeHave', value)}
-                        type="number"
-                        InputProps={{
-                            startAdornment: <InputAdornment position="start">шт</InputAdornment>,
-                        }}
-                    />
+                    <FormControlLabel
+                        label="Скрыть оверстоки на swap.gg"
+                        control={
+                            <Checkbox
+                                checked={settings.isHideOverstocks}
+                                onChange={({target: {checked}}) => change('isHideOverstocks', checked)} />
+                    } />
                 </div>
             </div>
             <div className="column">
@@ -83,9 +81,9 @@ const Settings = ({
             <div className="column">
                 <div>
                     <TextField
-                        label="Мин. цена на itrade.gg"
-                        value={settings.minItradePrice || ''}
-                        onChange={({target: {value}}) => change('minItradePrice', value)}
+                        label="Мин. цена на swap.gg"
+                        value={settings.minSwapggPrice || ''}
+                        onChange={({target: {value}}) => change('minSwapggPrice', value)}
                         type="number"
                         InputProps={{
                             startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -94,9 +92,9 @@ const Settings = ({
                 </div>
                 <div>
                     <TextField
-                        label="Макс. цена на itrade.gg"
-                        value={settings.maxItradePrice || ''}
-                        onChange={({target: {value}}) => change('maxItradePrice', value)}
+                        label="Макс. цена на swap.gg"
+                        value={settings.maxSwapggPrice || ''}
+                        onChange={({target: {value}}) => change('maxSwapggPrice', value)}
                         type="number"
                         InputProps={{
                             startAdornment: <InputAdornment position="start">$</InputAdornment>,

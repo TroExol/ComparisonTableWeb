@@ -7,11 +7,11 @@ const Fetch = () => async (dispatch) => {
     try {
         dispatch(SetLootfarmIsLoading(true));
         
-        const {data} = await Axios.get('http://localhost:7000/items/lootfarm');
+        const {data} = await Axios.get('http://localhost:7001/items/lootfarm');
         
         dispatch(SetLootfarmItems(data));
     } catch (error) {
-        console.error('При загрузке предметов loot.farm произошла ошибка', error);
+        console.error(error?.message);
         dispatch(SetLootfarmItems([]));
     } finally {
         dispatch(SetLootfarmIsLoading(false));

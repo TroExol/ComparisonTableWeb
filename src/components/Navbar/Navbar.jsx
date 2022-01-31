@@ -47,6 +47,12 @@ const Navbar = () => {
                 <MenuItem onClick={handleClose}>
                     <Link to="/lootfarm2itrade" className="link">loot.farm -> itrade.gg</Link>
                 </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Link to="/swapgg2rusttm" className="link">swap.gg -> rust.tm</Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Link to="/lootfarm2swapgg" className="link">loot.farm -> swap.gg</Link>
+                </MenuItem>
             </Menu>
         </div>
     );

@@ -6,6 +6,8 @@ import {SET_RUST_TM_ITEMS, MutateRustTmItems} from './actions/blocks/rustTm/setI
 import {SET_RUST_TM_IS_LOADING, MutateRustTmIsLoading} from './actions/blocks/rustTm/setIsLoading';
 import {SET_ITRADE_ITEMS, MutateItradeItems} from './actions/blocks/itrade/setItems';
 import {SET_ITRADE_IS_LOADING, MutateItradeIsLoading} from './actions/blocks/itrade/setIsLoading';
+import {SET_SWAPGG_ITEMS, MutateSwapggItems} from './actions/blocks/swapgg/setItems';
+import {SET_SWAPGG_IS_LOADING, MutateSwapggIsLoading} from './actions/blocks/swapgg/setIsLoading';
 import {SET_VALUTE, MutateValute} from './actions/blocks/valute/set';
 
 const reducer = (state = DefaultState, {type, payload}) => {
@@ -28,9 +30,14 @@ const reducer = (state = DefaultState, {type, payload}) => {
         case SET_ITRADE_IS_LOADING:
             return MutateItradeIsLoading(state, payload);
         
+        case SET_SWAPGG_ITEMS:
+            return MutateSwapggItems(state, payload);
+        
+        case SET_SWAPGG_IS_LOADING:
+            return MutateSwapggIsLoading(state, payload);
+        
         case SET_VALUTE:
             return MutateValute(state, payload);
-        
         
         default:
             return state;

@@ -14,19 +14,19 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import Settings from './components/Settings';
 
 const ComparisonTable = ({
-    itrade,
+    swapgg,
     rustTm,
     valute,
     settings,
     
-    fetchItrade,
+    fetchSwapgg,
     fetchRustTm,
     fetchValute,
     fetchSettings,
     updateSettings,
 }) => {
     const load = () => {
-        fetchItrade();
+        fetchSwapgg();
         fetchRustTm();
         fetchValute();
     };
@@ -48,29 +48,29 @@ const ComparisonTable = ({
     };
     
     const formattedItems = useMemo(() => {
-        return itrade.items.reduce((acc, itradeItem) => {
-            const rustTmItem = rustTm.items.find(item => item.market_hash_name === itradeItem.name);
+        return swapgg.items.reduce((acc, swapggItem) => {
+            const rustTmItem = rustTm.items.find(item => item.market_hash_name === swapggItem.marketName);
             
             if (!rustTmItem) {
                 return acc;
             }
             
-            const profit = calcProfit(itradeItem.price, rustTmItem.buy_order * 0.95);
+            const profit = calcProfit(swapggItem.price.value / 100, rustTmItem.buy_order * 0.95);
             
             acc.push({
                 rustTmId: rustTmItem.id.replace('_', '-'),
-                name: itradeItem.name,
-                priceItrade: itradeItem.price.toFixed(3),
+                name: swapggItem.marketName,
+                priceSwapgg: (swapggItem.price.value / 100).toFixed(3),
                 priceRustTm: rustTmItem.buy_order,
                 priceRustTmRub: (rustTmItem.buy_order * valute).toFixed(2),
                 profit,
-                itradeHave: itradeItem.same,
+                swapggHave: swapggItem.stock.have,
             });
             
             return acc;
         }, [])
             .sort((item1, item2) => item2.profit - item1.profit);
-    }, [itrade, rustTm, valute]);
+    }, [swapgg, rustTm, valute]);
     
     const filteredItems = useMemo(() => {
         if (!formattedItems) {
@@ -78,13 +78,13 @@ const ComparisonTable = ({
         }
         
         return formattedItems.reduce((acc, item) => {
-            if (settings.minItradeHave && item.itradeHave < settings.minItradeHave) {
+            if (settings.minSwapggHave && item.swapggHave < settings.minSwapggHave) {
                 return acc;
             }
-            if (settings.minItradePrice && item.priceItrade < settings.minItradePrice) {
+            if (settings.minSwapggPrice && item.priceItrade < settings.minSwapggPrice) {
                 return acc;
             }
-            if (settings.maxItradePrice && item.priceItrade > settings.maxItradePrice) {
+            if (settings.maxSwapggPrice && item.priceItrade > settings.maxSwapggPrice) {
                 return acc;
             }
             if (settings.minRustTmPrice && item.priceRustTm < settings.minRustTmPrice) {
@@ -110,7 +110,7 @@ const ComparisonTable = ({
     return (
         <>
             <Typography variant="h4" gutterBottom component="div">
-                itrade.gg -> rust.tm
+                swap.gg -> rust.tm
             </Typography>
             <div className="settings">
                 <Settings
@@ -123,13 +123,13 @@ const ComparisonTable = ({
                     <ReplayIcon color="primary" fontSize="inherit" />
                 </IconButton>
             </div>
-            {!itrade.isLoading && !rustTm.isLoading ? (
+            {!swapgg.isLoading && !rustTm.isLoading ? (
                 <Table className="table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Название</TableCell>
-                            <TableCell align="right">Цена itrade.gg</TableCell>
-                            <TableCell align="right">На itrade.gg</TableCell>
+                            <TableCell align="right">Цена swap.gg</TableCell>
+                            <TableCell align="right">На swap.gg</TableCell>
                             <TableCell align="right">Цена rust.tm</TableCell>
                             <TableCell align="right">Профит</TableCell>
                         </TableRow>
@@ -151,8 +151,8 @@ const ComparisonTable = ({
                                         </IconButton>
                                     </span>
                                 </TableCell>
-                                <TableCell align="right">{item.priceItrade} $</TableCell>
-                                <TableCell align="right">{item.itradeHave} шт</TableCell>
+                                <TableCell align="right">{item.priceSwapgg} $</TableCell>
+                                <TableCell align="right">{item.swapggHave} шт</TableCell>
                                 <TableCell align="right">{`${item.priceRustTm} $ (${item.priceRustTmRub} руб)`}</TableCell>
                                 <TableCell align="right">{item.profit} %</TableCell>
                             </TableRow>

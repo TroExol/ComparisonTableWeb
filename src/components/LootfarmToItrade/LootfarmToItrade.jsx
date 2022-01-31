@@ -52,12 +52,13 @@ const ComparisonTable = ({
                 return acc;
             }
             
-            const profit = calcProfit(lootfarmItem.price / 100, itradeItem.price * 0.91);
+            const profit = calcProfit(lootfarmItem.price / 100, itradeItem.price * 0.9);
             
             acc.push({
                 name: lootfarmItem.name,
                 priceLootfarm: lootfarmItem.price / 100,
                 priceItrade: itradeItem.price,
+                priceItradeWithCommission: Number((itradeItem.price * 0.9).toFixed(2)),
                 profit,
                 lootfarmHave: lootfarmItem.have,
                 itradeHave: itradeItem.same,
@@ -150,7 +151,7 @@ const ComparisonTable = ({
                                 </TableCell>
                                 <TableCell align="right">{item.priceLootfarm} $</TableCell>
                                 <TableCell align="right">{item.lootfarmHave} шт</TableCell>
-                                <TableCell align="right">{item.priceItrade} $</TableCell>
+                                <TableCell align="right">{item.priceItrade} $ ({item.priceItradeWithCommission} $)</TableCell>
                                 <TableCell align="right">{item.itradeHave} шт</TableCell>
                                 <TableCell align="right">{item.profit} %</TableCell>
                             </TableRow>

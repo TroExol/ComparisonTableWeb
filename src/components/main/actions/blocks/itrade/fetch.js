@@ -7,11 +7,11 @@ const Fetch = () => async (dispatch) => {
     try {
         dispatch(SetItradeIsLoading(true));
         
-        const {data} = await Axios.get('http://localhost:7000/items/itrade');
+        const {data} = await Axios.get('http://localhost:7001/items/itrade');
         
         dispatch(SetItradeItems(data));
     } catch (error) {
-        console.error('При загрузке предметов itrade.gg произошла ошибка', error);
+        console.error(error?.message);
         dispatch(SetItradeItems([]));
     } finally {
         dispatch(SetItradeIsLoading(false));

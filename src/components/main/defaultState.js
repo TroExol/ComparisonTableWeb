@@ -7,6 +7,10 @@ const DefaultState = {
         items: [],
         isLoading: false,
     },
+    swapgg: {
+        items: [],
+        isLoading: false,
+    },
     rustTm: {
         items: [],
         isLoading: false,

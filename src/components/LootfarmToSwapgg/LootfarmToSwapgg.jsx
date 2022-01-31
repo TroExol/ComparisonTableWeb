@@ -7,28 +7,25 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    CircularProgress, Typography, Link, IconButton,
+    CircularProgress, Typography, IconButton,
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Settings from './components/Settings';
 
 const ComparisonTable = ({
-    itrade,
-    rustTm,
-    valute,
+    lootfarm,
+    swapgg,
     settings,
     
-    fetchItrade,
-    fetchRustTm,
-    fetchValute,
+    fetchLootfarm,
+    fetchSwapgg,
     fetchSettings,
     updateSettings,
 }) => {
     const load = () => {
-        fetchItrade();
-        fetchRustTm();
-        fetchValute();
+        fetchLootfarm();
+        fetchSwapgg();
     };
     
     useEffect(() => {
@@ -48,29 +45,30 @@ const ComparisonTable = ({
     };
     
     const formattedItems = useMemo(() => {
-        return itrade.items.reduce((acc, itradeItem) => {
-            const rustTmItem = rustTm.items.find(item => item.market_hash_name === itradeItem.name);
+        return lootfarm.items.reduce((acc, lootfarmItem) => {
+            const swapggItem = swapgg.items.find(item => item.marketName === lootfarmItem.name);
             
-            if (!rustTmItem) {
+            if (!swapggItem) {
                 return acc;
             }
             
-            const profit = calcProfit(itradeItem.price, rustTmItem.buy_order * 0.95);
+            const profit = calcProfit(lootfarmItem.price / 100, swapggItem.price.value / 100 * 0.92);
             
             acc.push({
-                rustTmId: rustTmItem.id.replace('_', '-'),
-                name: itradeItem.name,
-                priceItrade: itradeItem.price.toFixed(3),
-                priceRustTm: rustTmItem.buy_order,
-                priceRustTmRub: (rustTmItem.buy_order * valute).toFixed(2),
+                name: lootfarmItem.name,
+                priceLootfarm: lootfarmItem.price / 100,
+                priceSwapgg: swapggItem.price.value / 100,
+                priceSwapggWithCommission: Number((swapggItem.price.value / 100 * 0.92).toFixed(2)),
                 profit,
-                itradeHave: itradeItem.same,
+                lootfarmHave: lootfarmItem.have,
+                swapggHave: swapggItem.stock.have,
+                swapggMax: swapggItem.stock.max,
             });
             
             return acc;
         }, [])
             .sort((item1, item2) => item2.profit - item1.profit);
-    }, [itrade, rustTm, valute]);
+    }, [lootfarm, swapgg]);
     
     const filteredItems = useMemo(() => {
         if (!formattedItems) {
@@ -78,19 +76,25 @@ const ComparisonTable = ({
         }
         
         return formattedItems.reduce((acc, item) => {
-            if (settings.minItradeHave && item.itradeHave < settings.minItradeHave) {
+            if (settings.minLootfarmHave && item.lootfarmHave < settings.minLootfarmHave) {
                 return acc;
             }
-            if (settings.minItradePrice && item.priceItrade < settings.minItradePrice) {
+            if (settings.minSwapggHave && item.swapggHave < settings.minSwapggHave) {
                 return acc;
             }
-            if (settings.maxItradePrice && item.priceItrade > settings.maxItradePrice) {
+            if (settings.isHideOverstocks && (item.swapggMax - item.swapggHave) <= 0) {
                 return acc;
             }
-            if (settings.minRustTmPrice && item.priceRustTm < settings.minRustTmPrice) {
+            if (settings.minLootfarmPrice && item.priceLootfarm < settings.minLootfarmPrice) {
                 return acc;
             }
-            if (settings.maxRustTmPrice && item.priceRustTm > settings.maxRustTmPrice) {
+            if (settings.maxLootfarmPrice && item.priceLootfarm > settings.maxLootfarmPrice) {
+                return acc;
+            }
+            if (settings.minSwapggPrice && item.priceSwapgg < settings.minSwapggPrice) {
+                return acc;
+            }
+            if (settings.maxSwapggPrice && item.priceSwapgg > settings.maxSwapggPrice) {
                 return acc;
             }
             if (settings.minProfit && item.profit < settings.minProfit) {
@@ -110,7 +114,7 @@ const ComparisonTable = ({
     return (
         <>
             <Typography variant="h4" gutterBottom component="div">
-                itrade.gg -> rust.tm
+                loot.farm -> swap.gg
             </Typography>
             <div className="settings">
                 <Settings
@@ -123,14 +127,15 @@ const ComparisonTable = ({
                     <ReplayIcon color="primary" fontSize="inherit" />
                 </IconButton>
             </div>
-            {!itrade.isLoading && !rustTm.isLoading ? (
+            {!lootfarm.isLoading && !swapgg.isLoading ? (
                 <Table className="table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Название</TableCell>
-                            <TableCell align="right">Цена itrade.gg</TableCell>
-                            <TableCell align="right">На itrade.gg</TableCell>
-                            <TableCell align="right">Цена rust.tm</TableCell>
+                            <TableCell align="right">Цена loot.farm</TableCell>
+                            <TableCell align="right">На loot.farm</TableCell>
+                            <TableCell align="right">Цена swap.gg</TableCell>
+                            <TableCell align="right">На swap.gg</TableCell>
                             <TableCell align="right">Профит</TableCell>
                         </TableRow>
                     </TableHead>
@@ -138,22 +143,17 @@ const ComparisonTable = ({
                         {filteredItems.map(item => (
                             <TableRow key={item.name} hover>
                                 <TableCell>
-                                    <Link
-                                        href={`https://rust.tm/item/${item.rustTmId}-${item.name}`}
-                                        underline="none"
-                                        className="link-name"
-                                        target="_blank">
-                                        {item.name}
-                                    </Link>
+                                    {item.name}
                                     <span className="copy">
                                         <IconButton size="small" onClick={() => copyToClipboard(item.name)}>
                                             <ContentCopyIcon />
                                         </IconButton>
                                     </span>
                                 </TableCell>
-                                <TableCell align="right">{item.priceItrade} $</TableCell>
-                                <TableCell align="right">{item.itradeHave} шт</TableCell>
-                                <TableCell align="right">{`${item.priceRustTm} $ (${item.priceRustTmRub} руб)`}</TableCell>
+                                <TableCell align="right">{item.priceLootfarm} $</TableCell>
+                                <TableCell align="right">{item.lootfarmHave} шт</TableCell>
+                                <TableCell align="right">{item.priceSwapgg} $ ({item.priceSwapggWithCommission} $)</TableCell>
+                                <TableCell align="right">{item.swapggHave} шт [{item.swapggMax - item.swapggHave}]</TableCell>
                                 <TableCell align="right">{item.profit} %</TableCell>
                             </TableRow>
                         ))}
