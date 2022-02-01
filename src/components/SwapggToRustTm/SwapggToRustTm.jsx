@@ -55,12 +55,12 @@ const ComparisonTable = ({
                 return acc;
             }
             
-            const profit = calcProfit(swapggItem.price.value / 100, rustTmItem.buy_order * 0.95);
+            const profit = calcProfit(swapggItem.price.value * 1.08 / 100, rustTmItem.buy_order * 0.95);
             
             acc.push({
                 rustTmId: rustTmItem.id.replace('_', '-'),
                 name: swapggItem.marketName,
-                priceSwapgg: (swapggItem.price.value / 100).toFixed(3),
+                priceSwapgg: (swapggItem.price.value * 1.08  / 100).toFixed(3),
                 priceRustTm: rustTmItem.buy_order,
                 priceRustTmRub: (rustTmItem.buy_order * valute).toFixed(2),
                 profit,
@@ -81,10 +81,10 @@ const ComparisonTable = ({
             if (settings.minSwapggHave && item.swapggHave < settings.minSwapggHave) {
                 return acc;
             }
-            if (settings.minSwapggPrice && item.priceItrade < settings.minSwapggPrice) {
+            if (settings.minSwapggPrice && item.priceSwapgg < settings.minSwapggPrice) {
                 return acc;
             }
-            if (settings.maxSwapggPrice && item.priceItrade > settings.maxSwapggPrice) {
+            if (settings.maxSwapggPrice && item.priceSwapgg > settings.maxSwapggPrice) {
                 return acc;
             }
             if (settings.minRustTmPrice && item.priceRustTm < settings.minRustTmPrice) {

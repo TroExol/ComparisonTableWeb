@@ -52,13 +52,12 @@ const ComparisonTable = ({
                 return acc;
             }
             
-            const profit = calcProfit(lootfarmItem.price / 100, swapggItem.price.value / 100 * 0.92);
+            const profit = calcProfit(lootfarmItem.price / 100, swapggItem.price.value / 100);
             
             acc.push({
                 name: lootfarmItem.name,
                 priceLootfarm: lootfarmItem.price / 100,
                 priceSwapgg: swapggItem.price.value / 100,
-                priceSwapggWithCommission: Number((swapggItem.price.value / 100 * 0.92).toFixed(2)),
                 profit,
                 lootfarmHave: lootfarmItem.have,
                 swapggHave: swapggItem.stock.have,
@@ -152,7 +151,7 @@ const ComparisonTable = ({
                                 </TableCell>
                                 <TableCell align="right">{item.priceLootfarm} $</TableCell>
                                 <TableCell align="right">{item.lootfarmHave} шт</TableCell>
-                                <TableCell align="right">{item.priceSwapgg} $ ({item.priceSwapggWithCommission} $)</TableCell>
+                                <TableCell align="right">{item.priceSwapgg} $</TableCell>
                                 <TableCell align="right">{item.swapggHave} шт [{item.swapggMax - item.swapggHave}]</TableCell>
                                 <TableCell align="right">{item.profit} %</TableCell>
                             </TableRow>
