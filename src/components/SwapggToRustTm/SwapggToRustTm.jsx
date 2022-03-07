@@ -55,14 +55,14 @@ const ComparisonTable = ({
                 return acc;
             }
             
-            const profit = calcProfit(swapggItem.price.value * 1.08 / 100, rustTmItem.buy_order * 0.95);
+            const profit = calcProfit(swapggItem.price.value * 1.08 / 100, rustTmItem.buy_order / 1000 * 0.95);
             
             acc.push({
                 rustTmId: rustTmItem.id.replace('_', '-'),
                 name: swapggItem.marketName,
                 priceSwapgg: (swapggItem.price.value * 1.08  / 100).toFixed(3),
-                priceRustTm: rustTmItem.buy_order,
-                priceRustTmRub: (rustTmItem.buy_order * valute).toFixed(2),
+                priceRustTm: rustTmItem.buy_order / 1000,
+                priceRustTmRub: (rustTmItem.buy_order / 1000 * valute).toFixed(2),
                 profit,
                 swapggHave: swapggItem.stock.have,
             });
