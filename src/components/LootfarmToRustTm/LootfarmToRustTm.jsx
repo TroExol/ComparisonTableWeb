@@ -55,14 +55,14 @@ const ComparisonTable = ({
                 return acc;
             }
             
-            const profit = calcProfit(lootfarmItem.price / 100, rustTmItem.buy_order / 1000 * 0.95);
+            const profit = calcProfit(lootfarmItem.price / 100, rustTmItem.buy_order * 0.95);
             
             acc.push({
                 rustTmId: rustTmItem.id.replace('_', '-'),
                 name: lootfarmItem.name,
                 priceLootfarm: lootfarmItem.price / 100,
-                priceRustTm: rustTmItem.buy_order / 1000,
-                priceRustTmRub: (rustTmItem.buy_order  / 1000 * valute).toFixed(2),
+                priceRustTm: rustTmItem.buy_order,
+                priceRustTmRub: (rustTmItem.buy_order * valute).toFixed(2),
                 profit,
                 lootfarmHave: lootfarmItem.have,
             });
