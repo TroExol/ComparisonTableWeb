@@ -1,14 +1,12 @@
 const connector = ({
-    main: {
-        lootfarm,
-        swapgg,
-    },
     lootfarmToSwapgg: {
+        items,
+        isLoading,
         settings,
     },
 }) => ({
-    lootfarm,
-    swapgg,
+    items,
+    isLoading,
     settings,
 });
 

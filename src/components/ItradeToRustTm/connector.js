@@ -1,16 +1,12 @@
 const connector = ({
-    main: {
-        itrade,
-        rustTm,
-        valute,
-    },
     itradeToRustTm: {
+        items,
+        isLoading,
         settings,
     },
 }) => ({
-    itrade,
-    rustTm,
-    valute,
+    items,
+    isLoading,
     settings,
 });
 

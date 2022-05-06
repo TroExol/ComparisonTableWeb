@@ -1,16 +1,12 @@
 const connector = ({
-    main: {
-        lootfarm,
-        rustTm,
-        valute,
-    },
     lootfarmToRustTm: {
+        items,
+        isLoading,
         settings,
     },
 }) => ({
-    lootfarm,
-    rustTm,
-    valute,
+    items,
+    isLoading,
     settings,
 });
 

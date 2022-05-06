@@ -1,16 +1,12 @@
 const connector = ({
-    main: {
-        swapgg,
-        rustTm,
-        valute,
-    },
     swapggToRustTm: {
+        items,
+        isLoading,
         settings,
     },
 }) => ({
-    swapgg,
-    rustTm,
-    valute,
+    items,
+    isLoading,
     settings,
 });
 

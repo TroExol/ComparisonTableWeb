@@ -11,6 +11,8 @@ const DefaultState = {
         minProfit: null,
         maxProfit: null,
     },
+    items: [],
+    isLoading: false,
 };
 
 export default DefaultState;

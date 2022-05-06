@@ -9,5 +9,5 @@ const usedMiddleware = [Thunk];
 
 export default createStore(
     Reducers,
-    applyMiddleware(...usedMiddleware)
+    applyMiddleware(...usedMiddleware),
 );

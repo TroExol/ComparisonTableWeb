@@ -1,14 +1,12 @@
 const connector = ({
-    main: {
-        lootfarm,
-        itrade,
-    },
     lootfarmToItrade: {
+        items,
+        isLoading,
         settings,
     },
 }) => ({
-    lootfarm,
-    itrade,
+    items,
+    isLoading,
     settings,
 });
 

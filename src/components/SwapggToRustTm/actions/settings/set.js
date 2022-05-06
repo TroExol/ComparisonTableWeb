@@ -9,8 +9,8 @@ export const SetSettings = data => ({
 
 export const MutateSettings = (state, value) => {
     window.localStorage.setItem('settingsSwapggToRustTm', JSON.stringify(value));
-    
+
     return Update(state, {
         settings: {$set: value},
     });
-}
+};

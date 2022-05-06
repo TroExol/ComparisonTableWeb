@@ -1,11 +1,9 @@
-import FetchLootfarm from '../main/actions/blocks/lootfarm/fetch';
-import FetchSwapgg from '../main/actions/blocks/swapgg/fetch';
+import Fetch from './actions/fetch';
 import FetchSettings from './actions/settings/fetch';
 import UpdateSettings from './actions/settings/update';
 
 const dispatcher = dispatch => ({
-    fetchLootfarm: () => dispatch(FetchLootfarm()),
-    fetchSwapgg: () => dispatch(FetchSwapgg()),
+    fetch: () => dispatch(Fetch()),
     fetchSettings: () => dispatch(FetchSettings()),
     updateSettings: value => dispatch(UpdateSettings(value)),
 });
