@@ -1,7 +1,7 @@
 {
-  "name": "comparison-table",
+  "name": "comparison-table-web",
   "version": "1.0.0",
-  "description": "Таблица сравнения rust",
+  "description": "Таблица сравнения цен на сайтах",
   "private": true,
   "homepage": ".",
   "dependencies": {
