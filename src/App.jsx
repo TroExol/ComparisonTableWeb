@@ -1,6 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes} from 'react-router-dom';
 
 import store from './store';
 
@@ -15,7 +15,7 @@ import Navbar from './components/Navbar';
 const App = () => {
     return (
         <Provider store={store}>
-            <BrowserRouter>
+            <HashRouter>
                 <Navbar/>
                 <div>
                     <Routes>
@@ -42,7 +42,7 @@ const App = () => {
                             element={<LootfarmToSwapgg/>}/>
                     </Routes>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         </Provider>
     );
 };
