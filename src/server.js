@@ -42,9 +42,9 @@ app.get('/items/swapgg', async (req, res) => {
 
 app.get('/items/itrade', async (req, res) => {
     try {
-        const {data: {inventory: {items}}} = await Axios.get('https://itrade.gg/ajax/getInventory?game=252490&type=bot');
+        const {data} = await Axios.get('https://itrade.gg/ajax/getInventory?game=252490&type=bot');
 
-        const formattedItems = Object.values(items).map(value => {
+        const formattedItems = Object.values(data?.inventory?.items || []).map(value => {
             return {...value};
         });
 

@@ -27,7 +27,7 @@
     "start:client": "react-scripts start",
     "start:server": "node ./src/server.js",
     "start:server-dev": "nodemon ./src/server.js",
-    "start:all": "npm-run-all --parallel start-server-dev start-client",
+    "start:all": "npm-run-all --parallel start:server-dev start:client",
     "build": "react-scripts build",
     "linter": "eslint .\\src\\ --ext .js --ext .jsx",
     "linter:fix": "eslint .\\src\\ --ext .js --ext .jsx --fix"

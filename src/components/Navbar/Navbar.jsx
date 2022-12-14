@@ -36,20 +36,20 @@ const Navbar = () => {
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}>
-                <MenuItem onClick={handleClose}>
-                    <Link
-                        to='/lootfarm2rusttm'
-                        className='link'>
-                        loot.farm -&gt; rust.tm
-                    </Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Link
-                        to='/itrade2rusttm'
-                        className='link'>
-                        itrade.gg -&gt; rust.tm
-                    </Link>
-                </MenuItem>
+                {/*<MenuItem onClick={handleClose}>*/}
+                {/*    <Link*/}
+                {/*        to='/lootfarm2rusttm'*/}
+                {/*        className='link'>*/}
+                {/*        loot.farm -&gt; rust.tm*/}
+                {/*    </Link>*/}
+                {/*</MenuItem>*/}
+                {/*<MenuItem onClick={handleClose}>*/}
+                {/*    <Link*/}
+                {/*        to='/itrade2rusttm'*/}
+                {/*        className='link'>*/}
+                {/*        itrade.gg -&gt; rust.tm*/}
+                {/*    </Link>*/}
+                {/*</MenuItem>*/}
                 <MenuItem onClick={handleClose}>
                     <Link
                         to='/lootfarm2itrade'
@@ -64,13 +64,13 @@ const Navbar = () => {
                         itrade.gg -&gt; loot.farm
                     </Link>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Link
-                        to='/swapgg2rusttm'
-                        className='link'>
-                        swap.gg -&gt; rust.tm
-                    </Link>
-                </MenuItem>
+                {/*<MenuItem onClick={handleClose}>*/}
+                {/*    <Link*/}
+                {/*        to='/swapgg2rusttm'*/}
+                {/*        className='link'>*/}
+                {/*        swap.gg -&gt; rust.tm*/}
+                {/*    </Link>*/}
+                {/*</MenuItem>*/}
                 <MenuItem onClick={handleClose}>
                     <Link
                         to='/lootfarm2swapgg'
