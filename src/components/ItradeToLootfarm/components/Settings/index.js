@@ -1,3 +1,5 @@
+import {memo} from 'react';
+
 import settings from './Settings.jsx';
 
-export default settings;
+export default memo(settings);
